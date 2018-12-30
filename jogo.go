@@ -80,6 +80,13 @@ func (r ResultJson) IntStrict() (int64, error) {
 
 }
 
+func (r ResultJson) Float() float64 {
+
+	v := r.rawJson
+	return v.(float64)
+
+}
+
 func (expJson *ExportedJson) Get(keyRef string) (ResultJson, error) {
 
 	var keyChain []string = strings.Split(keyRef, ".")
