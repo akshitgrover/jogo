@@ -37,7 +37,7 @@ func Export(importedJson string) (ExportedJson, ResultJson, error) {
 
 func GetType(v interface{}) (string, error) {
 
-	switch reflect.ValueOf(v).Type().String() {
+	switch getType(v) {
 	case "map[string]interface {}":
 		return "OBJECT", nil
 	case "[]interface {}":
@@ -49,9 +49,35 @@ func GetType(v interface{}) (string, error) {
 	case "bool":
 		return "BOOLEAN", nil
 	case "":
-		return "", errors.New("InvalidArg: Invalid argument passed in GetType method.")
+		return "", throwError("InvalidArg", "GetType")
 	default:
 		return "", nil
+	}
+
+}
+
+func getType(v interface{}) string {
+
+	if v == nil {
+		return ""
+	}
+	return reflect.ValueOf(v).Type().String()
+
+}
+
+func throwError(code string, data string) error {
+
+	switch code {
+	case "KeyIndexError":
+		return errors.New("KeyIndexError: JoGO cannot index over non-map object.")
+	case "KeyError":
+		return errors.New("KeyError: Key '" + data + "' does not exist.")
+	case "InvalidArg":
+		return errors.New("InvalidArg: Invalid argument passed in '" + data + "' method.")
+	case "InvalidType":
+		return errors.New(data)
+	default:
+		return errors.New("Error code unmatched")
 	}
 
 }
