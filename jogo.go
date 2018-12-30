@@ -130,6 +130,21 @@ func (r ResultJson) String() string {
 	return v.(string)
 }
 
+func (r ResultJson) StringStrict() (string, error) {
+
+	v := r.rawJson
+	if v == nil {
+		return "", throwError("InvalidArg", "StringStrict")
+	}
+	tp, _ := GetType(v)
+	if tp == "STRING" {
+		return v.(string), nil
+	} else {
+		return "", throwError("InvalidType", "(Method -> StringStrict), Expected STRING got "+tp)
+	}
+
+}
+
 func (expJson *ExportedJson) Get(keyRef string) (ResultJson, error) {
 
 	var keyChain []string = strings.Split(keyRef, ".")
