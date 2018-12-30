@@ -65,6 +65,21 @@ func (r ResultJson) Int() int64 {
 
 }
 
+func (r ResultJson) IntStrict() (int64, error) {
+
+	v := r.rawJson
+	if v == nil {
+		return 0, throwError("InvalidArg", "IntStrict")
+	}
+	tp, _ := GetType(v)
+	if tp == "NUMBER" {
+		return int64(v.(float64)), nil
+	} else {
+		return 0, throwError("InvalidType", "(Method -> IntStrict) Expected NUMBER got "+tp)
+	}
+
+}
+
 func (expJson *ExportedJson) Get(keyRef string) (ResultJson, error) {
 
 	var keyChain []string = strings.Split(keyRef, ".")
