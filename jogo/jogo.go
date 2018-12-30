@@ -151,6 +151,21 @@ func (r ResultJson) Object() map[string]interface{} {
 	return v.(map[string]interface{})
 }
 
+func (r ResultJson) ObjectStrict() (map[string]interface{}, error) {
+
+	v := r.rawJson
+	if v == nil {
+		return nil, throwError("InvalidArg", "ObjectStrict")
+	}
+	tp, _ := GetType(v)
+	if tp == "OBJECT" {
+		return v.(map[string]interface{}), nil
+	} else {
+		return nil, throwError("InvalidType", "(Method -> ObjectStrict), Expected OBJECT got"+tp)
+	}
+
+}
+
 func (expJson *ExportedJson) Get(keyRef string) (ResultJson, error) {
 
 	var keyChain []string = strings.Split(keyRef, ".")
