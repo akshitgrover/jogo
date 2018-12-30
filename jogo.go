@@ -102,6 +102,13 @@ func (r ResultJson) FloatStrict() (float64, error) {
 
 }
 
+func (r ResultJson) Bool() bool {
+
+	v := r.rawJson
+	return v.(bool)
+
+}
+
 func (expJson *ExportedJson) Get(keyRef string) (ResultJson, error) {
 
 	var keyChain []string = strings.Split(keyRef, ".")
