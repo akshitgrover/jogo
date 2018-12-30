@@ -145,6 +145,12 @@ func (r ResultJson) StringStrict() (string, error) {
 
 }
 
+func (r ResultJson) Object() map[string]interface{} {
+
+	v := r.rawJson
+	return v.(map[string]interface{})
+}
+
 func (expJson *ExportedJson) Get(keyRef string) (ResultJson, error) {
 
 	var keyChain []string = strings.Split(keyRef, ".")
