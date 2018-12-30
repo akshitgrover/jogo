@@ -173,6 +173,21 @@ func (r ResultJson) List() []interface{} {
 
 }
 
+func (r ResultJson) ListStrict() ([]interface{}, error) {
+
+	v := r.rawJson
+	if v == nil {
+		return nil, throwError("InvalidArg", "ListStrict")
+	}
+	tp, _ := GetType(v)
+	if tp == "LIST" {
+		return v.([]interface{}), nil
+	} else {
+		return nil, throwError("InvalidType", "(Method -> ListStrict), Expected LIST got"+tp)
+	}
+
+}
+
 func (expJson *ExportedJson) Get(keyRef string) (ResultJson, error) {
 
 	var keyChain []string = strings.Split(keyRef, ".")
