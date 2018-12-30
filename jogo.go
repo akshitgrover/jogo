@@ -109,6 +109,21 @@ func (r ResultJson) Bool() bool {
 
 }
 
+func (r ResultJson) BoolStrict() (bool, error) {
+
+	v := r.rawJson
+	if v == nil {
+		return false, throwError("InvalidArg", "BoolStrict")
+	}
+	tp, _ := GetType(v)
+	if tp == "BOOLEAN" {
+		return v.(bool), nil
+	} else {
+		return false, throwError("InvalidType", "(Method -> BoolStrict) Expected BOOLEAN got "+tp)
+	}
+
+}
+
 func (expJson *ExportedJson) Get(keyRef string) (ResultJson, error) {
 
 	var keyChain []string = strings.Split(keyRef, ".")
