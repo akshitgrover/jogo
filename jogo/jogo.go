@@ -166,6 +166,13 @@ func (r ResultJson) ObjectStrict() (map[string]interface{}, error) {
 
 }
 
+func (r ResultJson) List() []interface{} {
+
+	v := r.rawJson
+	return v.([]interface{})
+
+}
+
 func (expJson *ExportedJson) Get(keyRef string) (ResultJson, error) {
 
 	var keyChain []string = strings.Split(keyRef, ".")
