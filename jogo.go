@@ -57,6 +57,14 @@ func GetType(v interface{}) (string, error) {
 
 }
 
+func (r ResultJson) Int() int64 {
+
+	v := r.rawJson
+	t := v.(float64)
+	return int64(t)
+
+}
+
 func (expJson *ExportedJson) Get(keyRef string) (ResultJson, error) {
 
 	var keyChain []string = strings.Split(keyRef, ".")
