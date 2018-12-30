@@ -87,6 +87,21 @@ func (r ResultJson) Float() float64 {
 
 }
 
+func (r ResultJson) FloatStrict() (float64, error) {
+
+	v := r.rawJson
+	if v == nil {
+		return 0, throwError("InvalidArg", "FloatStrict")
+	}
+	tp, _ := GetType(v)
+	if tp == "NUMBER" {
+		return v.(float64), nil
+	} else {
+		return 0, throwError("InvalidType", "(Method -> FloatStrict) Expected NUMBER got "+tp)
+	}
+
+}
+
 func (expJson *ExportedJson) Get(keyRef string) (ResultJson, error) {
 
 	var keyChain []string = strings.Split(keyRef, ".")
