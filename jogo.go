@@ -124,6 +124,12 @@ func (r ResultJson) BoolStrict() (bool, error) {
 
 }
 
+func (r ResultJson) String() string {
+
+	v := r.rawJson
+	return v.(string)
+}
+
 func (expJson *ExportedJson) Get(keyRef string) (ResultJson, error) {
 
 	var keyChain []string = strings.Split(keyRef, ".")
