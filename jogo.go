@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"errors"
 	"reflect"
+	"strings"
 )
 
 type ExportedJson struct {
@@ -53,6 +54,71 @@ func GetType(v interface{}) (string, error) {
 	default:
 		return "", nil
 	}
+
+}
+
+func (expJson *ExportedJson) Get(keyRef string) (ResultJson, error) {
+
+	var keyChain []string = strings.Split(keyRef, ".")
+
+	if getType(expJson.rawJson) != "map[string]interface {}" && len(keyChain) > 0 {
+		return ResultJson{}, throwError("KeyIndexError", "")
+	}
+
+	var ResultJson ResultJson
+	var err error
+
+	flag_ := expJson.rawJson.(map[string]interface{})
+	toBreak := false
+	iterated := 0
+
+	for _, key := range keyChain {
+
+		iterated++
+		v, ok := expJson.cachedKeysContent[key]
+		if ok {
+			flag_ = v
+		}
+		t := getType(flag_[key])
+
+		switch t {
+		case "map[string]interface {}":
+			flag_ = flag_[key].(map[string]interface{})
+			expJson.cachedKeysContent[key] = flag_
+			ResultJson.rawJson = flag_
+			ResultJson.Type = "OBJECT"
+		case "[]interface {}":
+			ResultJson.rawJson = flag_[key].([]interface{})
+			ResultJson.Type = "LIST"
+			toBreak = true
+		case "string":
+			ResultJson.rawJson = flag_[key].(string)
+			ResultJson.Type = "STRING"
+			toBreak = true
+		case "float64":
+			ResultJson.rawJson = flag_[key].(float64)
+			ResultJson.Type = "NUMBER"
+			toBreak = true
+		case "bool":
+			ResultJson.rawJson = flag_[key].(bool)
+			ResultJson.Type = "BOOLEAN"
+			toBreak = true
+		case "":
+			toBreak = true
+			err = throwError("KeyError", key)
+		}
+
+		if toBreak {
+			break
+		}
+
+	}
+
+	if iterated != len(keyChain) && err == nil {
+		err = throwError("KeyIndexError", "")
+	}
+
+	return ResultJson, err
 
 }
 
