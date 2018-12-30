@@ -209,6 +209,7 @@ func (expJson *ExportedJson) Get(keyRef string) (ResultJson, error) {
 		v, ok := expJson.cachedKeysContent[key]
 		if ok {
 			flag_ = v
+			continue
 		}
 		t := getType(flag_[key])
 

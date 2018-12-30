@@ -38,7 +38,7 @@ var benchPaths = []string{
 	"widget.text.onMouseUp",
 }
 
-func BenchmarkGet(t *testing.B) {
+func BenchmarkJoGOGet(t *testing.B) {
 
 	t.ReportAllocs()
 	exp, _, _ := Export(exampleJson)
