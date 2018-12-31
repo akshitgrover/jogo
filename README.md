@@ -2,7 +2,9 @@
 <img src="https://github.com/akshitgrover/jogo/blob/master/logo.png" alt="LOGO">
 <br><br>
 <a href="http://godoc.org/github.com/akshitgrover/jogo/jogo"><img src="http://godoc.org/github.com/akshitgrover/jogo/jogo?status.svg" alt="LOGO"></a>
-<a href="https://goreportcard.com/report/github.com/akshitgrover/jogo"><img src="https://goreportcard.com/badge/github.com/akshitgrover/jogo"></a><br><br>
+<a href="https://goreportcard.com/report/github.com/akshitgrover/jogo"><img src="https://goreportcard.com/badge/github.com/akshitgrover/jogo"></a>
+<a href="https://travis-ci.org/akshitgrover/jogo"><img src="https://travis-ci.org/akshitgrover/jogo.svg?branch=master"></a>
+<br><br>
 <b>JSON o Golang | Forget static types, No more complex structure definitions, Focus on code. Go Reflect!</b>
 </p>
 
