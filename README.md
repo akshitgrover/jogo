@@ -209,19 +209,30 @@ Error object is native error interface provided by go.
 # Benchmarks
 
 ```
-BenchmarkJoGOGet-4   	15000000	       315 ns/op	      61 B/op	       2 allocs/op
+BenchmarkJoGOGet-4   	15000000	       317 ns/op	      61 B/op	       2 allocs/op
 
-BenchmarkGJSONGet-8                  3000000        372 ns/op          0 B/op         0 allocs/op
-BenchmarkGJSONUnmarshalMap-8          900000       4154 ns/op       1920 B/op        26 allocs/op
-BenchmarkJSONUnmarshalMap-8           600000       9019 ns/op       3048 B/op        69 allocs/op
-BenchmarkJSONDecoder-8                300000      14120 ns/op       4224 B/op       184 allocs/op
-BenchmarkFFJSONLexer-8               1500000       3111 ns/op        896 B/op         8 allocs/op
-BenchmarkEasyJSONLexer-8             3000000        887 ns/op        613 B/op         6 allocs/op
-BenchmarkJSONParserGet-8             3000000        499 ns/op         21 B/op         0 allocs/op
-BenchmarkJSONIterator-8              3000000        812 ns/op        544 B/op         9 allocs/op
+BenchmarkGJSONGet-4               	 3000000	       475 ns/op	       0 B/op	   0 allocs/op
+BenchmarkGJSONGetMany4Paths-4     	 4000000	       470 ns/op	      56 B/op	   0 allocs/op
+BenchmarkGJSONGetMany8Paths-4     	 8000000	       463 ns/op	      56 B/op	   0 allocs/op
+BenchmarkGJSONGetMany16Paths-4    	16000000	       496 ns/op	      56 B/op	   0 allocs/op
+BenchmarkGJSONGetMany32Paths-4    	32000000	       480 ns/op	      56 B/op	   0 allocs/op
+BenchmarkGJSONGetMany64Paths-4    	64000000	       485 ns/op	      64 B/op	   0 allocs/op
+BenchmarkGJSONGetMany128Paths-4      128000000	       509 ns/op	      64 B/op	   0 allocs/op
+BenchmarkGJSONUnmarshalMap-4      	  900000	      5060 ns/op	    1920 B/op	  26 allocs/op
+BenchmarkGJSONUnmarshalStruct-4   	  900000	      4984 ns/op	     992 B/op	   4 allocs/op
+BenchmarkJSONUnmarshalMap-4       	  600000	     11394 ns/op	    2968 B/op	  69 allocs/op
+BenchmarkJSONUnmarshalStruct-4    	  600000	      8674 ns/op	     784 B/op	   9 allocs/op
+BenchmarkJSONDecoder-4            	  300000	     17150 ns/op	    4133 B/op	 179 allocs/op
+BenchmarkFFJSONLexer-4            	 1500000	      3821 ns/op	     896 B/op	   8 allocs/op
+BenchmarkEasyJSONLexer-4          	 3000000	      1129 ns/op	     501 B/op	   5 allocs/op
+BenchmarkJSONParserGet-4          	 3000000	       498 ns/op	      21 B/op	   0 allocs/op
+BenchmarkJSONIterator-4           	 3000000	      1136 ns/op	     677 B/op	  14 allocs/op
+BenchmarkConvertNone-4            	   50000	     30790 ns/op	       0 B/op	   0 allocs/op
+BenchmarkConvertGet-4             	   50000	     39405 ns/op	   49152 B/op	   1 allocs/op
+BenchmarkConvertGetBytes-4        	   50000	     30780 ns/op	      48 B/op	   1 allocs/op
 ```
 
-JoGO benchmark testing was done on 2.3 GHz Intel Core i5 , Whereas other benchmarks were performed on MacBook Pro 15" 2.8 GHz Intel Core i7 and were taken from [here](https://github.com/tidwall/gjson-benchmarks).
+Benchmark testing was done on 2.3 GHz Intel Core i5, BenchMarks funcs were taken from [here](https://github.com/tidwall/gjson-benchmarks).
 
 # Copyright & License
 
