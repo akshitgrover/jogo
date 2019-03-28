@@ -83,6 +83,48 @@ func main() {
 }
 ```
 
+# R method
+
+R method is used to convert any interface to ResultJson struct.
+It accepts `interface{}` as an argument and returns `ResultJson{}`.
+
+***Note:*** R method makes it intuitive to iterate over Objects and Slices.
+
+```go
+package main
+
+import (
+    "github.com/akshitgrover/jogo/jogo"
+    "fmt"
+)
+
+func main() {
+
+    exp, r, err := jogo.Export(`{"name":{"firstname":"akshit", "lastname":"grover"}}`)
+    if err != nil {
+        fmt.Println(err)
+    } else {
+        fmt.Println(r.Type) //OBJECT
+        r2, _ := exp.Get("name")
+        for k, v := range r2 {
+            fmt.Println("Key: " + k)
+            fmt.Println("Value: " + jogo.R(v).String())
+        }
+    }
+    /* Output
+
+	OBJECT
+	Key: firstname
+	Value: akshit
+	--------
+	Key: lastname
+	Value: grover
+	--------
+
+	*/
+}
+```
+
 # ExportedJson
 
 Exported Json object holds parsed ***JSON***, If an underlying json represents an OBJECT (javascript alike),

@@ -2,6 +2,7 @@ package jogo
 
 import (
 	"testing"
+
 	"github.com/akshitgrover/jogo/jogo"
 )
 
@@ -94,5 +95,25 @@ func TestStringNested(t *testing.T) {
 	str := r.String()
 	if str != "world" {
 		t.FailNow()
+	}
+}
+
+func TestRFunc(t *testing.T) {
+	exp, _, err := jogo.Export(exampleJson)
+	if err != nil {
+		t.FailNow()
+	}
+	r, _ := exp.Get("widget.window")
+	if r.Type != "OBJECT" {
+		t.Log(r.Type)
+		t.FailNow()
+	}
+	obj := r.Object()
+	for _, v := range obj {
+		fR := jogo.R(v)
+		if fR.Type != "FLOAT64" && fR.Type != "STRING" {
+			t.Log(fR.Type)
+			t.FailNow()
+		}
 	}
 }

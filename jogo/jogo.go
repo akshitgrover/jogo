@@ -257,7 +257,7 @@ func (expJson *ExportedJson) Get(keyRef string) (ResultJson, error) {
 func R(val interface{}) ResultJson {
 	r := ResultJson{}
 	r.rawJson = val
-	r.Type = getType(val)
+	r.Type = strings.ToUpper(getType(val))
 	return r
 }
 
